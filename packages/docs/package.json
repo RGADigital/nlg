@@ -13,6 +13,13 @@
     "dev": "run-p dev:*",
     "dev:serve": "docma serve public",
     "dev:build": "nodemon -w src src/index",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "deploy": "run-s deploy:*",
+    "deploy:staging": "run-s deploy:staging:*",
+    "deploy:production": "run-s deploy:production:*",
+    "deploy:staging:pre": "npm run prepublish",
+    "deploy:staging:push": "env-cmd -f .env.staging netlify deploy --dir public --prod",
+    "deploy:production:pre": "npm run prepublish",
+    "deploy:production:push": "env-cmd -f .env.production netlify deploy --dir public --prod"
   }
 }
