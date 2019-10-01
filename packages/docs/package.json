@@ -1,0 +1,18 @@
+{
+  "name": "@nlg/docs",
+  "version": "1.0.0",
+  "repository": "https://github.com/sabinmarcu/nlg/",
+  "description": "Documentation for NLG",
+  "main": "public/index.html",
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "run-s build:*",
+    "build:clean": "rimraf public",
+    "build:doc": "node src/index",
+    "dev": "run-p dev:*",
+    "dev:serve": "docma serve public",
+    "dev:build": "nodemon -w src src/index",
+    "prepublish": "npm run build"
+  }
+}
