@@ -1,6 +1,10 @@
-extends: airbnb-base
+extends:
+  - airbnb-base
+  - plugin:jsdoc/recommended
 parser: babel-eslint
 rules:
   no-console: 0
 env:
   jest: true
+plugins:
+  - eslint-plugin-jsdoc
