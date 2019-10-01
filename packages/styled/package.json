@@ -1,8 +1,16 @@
 {
   "name": "@nlg/styled",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "repository": "https://github.com/sabinmarcu/nlg/",
   "description": "Styled devtools logs",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "author": "Sabin Marcu <sabinmarcu@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "build": "run-p build:*",
+    "build:clean": "rimraf dist",
+    "build:rollup": "NODE_ENV=production rollup -c ./rollup.config.js",
+    "build:gulp": "gulp",
+    "prepublish": "npm run build"
+  }
 }
