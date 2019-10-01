@@ -1,0 +1,8 @@
+{
+  "name": "@nlg/styled",
+  "version": "1.0.0",
+  "description": "Styled devtools logs",
+  "main": "src/index.js",
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "license": "ISC"
+}
