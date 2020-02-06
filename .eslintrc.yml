@@ -8,3 +8,4 @@ env:
   jest: true
 plugins:
   - eslint-plugin-jsdoc
+  - eslint-plugin-flowtype

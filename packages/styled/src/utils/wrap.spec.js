@@ -1,4 +1,9 @@
+// @flow
+
 import merge from './wrap';
+import {
+  type StylePair,
+} from '../types';
 
 describe('wrap', () => {
   test('one parameter', () => {
@@ -9,7 +14,7 @@ describe('wrap', () => {
     expect(combined[1]).toBe(testCase[1]);
   });
   test('multiple parameters', () => {
-    const testCase = [
+    const testCase: StylePair[] = [
       ['awesome', 'color: red'],
       ['super awesome', 'color: blue'],
     ];

@@ -18,7 +18,7 @@ export default (styles) => {
       const acc = [[strings[0]]];
       values.forEach((value, index) => {
         acc.push(
-          executeGetter(value, props || {}, stylesMap),
+          executeGetter(value, { props: props || {}, styler: stylesMap }),
           [strings[index + 1]],
         );
       });

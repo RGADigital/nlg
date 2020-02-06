@@ -1,4 +1,12 @@
-export default (...parts) => {
+// @flow
+
+import {
+  type StylePair,
+} from '../types';
+
+export type WrapProps = StylePair | StylePair[]
+
+export const wrap = (...parts: WrapProps): string[] => {
   if (parts.length === 2
     && typeof parts[0] === 'string'
     && typeof parts[1] === 'string'
@@ -14,3 +22,5 @@ export default (...parts) => {
   );
   return [partial.template, ...partial.styles];
 };
+
+export default wrap;

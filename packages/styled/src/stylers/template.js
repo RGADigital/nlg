@@ -6,7 +6,7 @@ export default (strings, ...values) => {
     const result = [strings[0]];
     const resultStyles = [];
     values.forEach((tpl, index) => {
-      const [template, ...styles] = executeGetter(tpl, props || {});
+      const [template, ...styles] = executeGetter(tpl, { props: props || {} });
       result.push(template, strings[index + 1]);
       resultStyles.push(...styles);
     });

@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Determine if array contains function (logger using it should become executable)
  *
@@ -7,5 +9,5 @@
  * isExecutable(['a', 'b', 'c']) // => false
  * isExecutable(['a', 'b', () => 'c']) // => true
  */
-const isExecutable = (values) => values.filter((it) => typeof it === 'function').length > 0;
+const isExecutable = (values: any[]): boolean => values.filter((it) => typeof it === 'function').length > 0;
 export default isExecutable;
