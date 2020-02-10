@@ -1,4 +1,5 @@
 import styled from './component';
+import { IStringTemplate } from '../types';
 
 describe('styled component', () => {
   it('should construct properly', () => {
@@ -9,29 +10,30 @@ describe('styled component', () => {
     const component = styled(styles);
     expect(typeof component).toBe('function');
     expect(typeof component.apply).toBe('function');
-    Object.keys(styles).forEach((key) => {
-      const styler = component[key];
-      expect(typeof styler).toBe('function');
-      const result = styler`awesome`;
-      expect(typeof result).toBe('object');
-      expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBe(3);
-      expect(result).toEqual([
-        '%cawesome%c',
-        styles[key],
-        '',
-      ]);
-      const applyStyler = component.apply(key);
-      const applyResult = applyStyler`stuff`;
-      expect(typeof applyResult).toBe('object');
-      expect(Array.isArray(applyResult)).toBe(true);
-      expect(applyResult.length).toBe(3);
-      expect(applyResult).toEqual([
-        '%cstuff%c',
-        styles[key],
-        '',
-      ]);
-    });
+    (Object.keys(styles) as Array<keyof typeof styles>)
+      .forEach((key) => {
+        const styler = component[key];
+        expect(typeof styler).toBe('function');
+        const result = styler`awesome`;
+        expect(typeof result).toBe('object');
+        expect(Array.isArray(result)).toBe(true);
+        expect(result.length).toBe(3);
+        expect(result).toEqual([
+          '%cawesome%c',
+          styles[key],
+          '',
+        ]);
+        const applyStyler = component.apply(key);
+        const applyResult = applyStyler`stuff`;
+        expect(typeof applyResult).toBe('object');
+        expect(Array.isArray(applyResult)).toBe(true);
+        expect(applyResult.length).toBe(3);
+        expect(applyResult).toEqual([
+          '%cstuff%c',
+          styles[key],
+          '',
+        ]);
+      });
   });
   it('should work properly on the base case', () => {
     const styles = {
@@ -69,18 +71,25 @@ describe('styled component', () => {
       props: {
         quantifier,
       },
+    }: {
+      props: {
+        quantifier: string,
+      }
     }) => component.red`${quantifier}`;
     const objectGetter = ({
       props: {
         object,
       },
+    }: {
+      props: {
+        object: string,
+      }
     }) => component.blue`${object}`;
 
     const template = component`${quantifierGetter} ${objectGetter}!`;
     expect(typeof template).toBe('function');
 
     const result = template(testCase);
-    console.log(testCase, template, result);
     expect(typeof result).toBe('object');
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBe(5);
@@ -112,6 +121,13 @@ describe('styled component', () => {
       styler: {
         red,
       },
+    }: {
+      props: {
+        quantifier: string,
+      },
+      styler: {
+        red: IStringTemplate,
+      }
     }) => red`${quantifier}`;
     const objectGetter = ({
       props: {
@@ -120,13 +136,19 @@ describe('styled component', () => {
       styler: {
         blue,
       },
+    }: {
+      props: {
+        object: string,
+      },
+      styler: {
+        blue: IStringTemplate,
+      }
     }) => blue`${object}`;
 
     const template = component`${quantifierGetter} ${objectGetter}!`;
     expect(typeof template).toBe('function');
 
     const result = template(testCase);
-    console.log(testCase, template, result);
     expect(typeof result).toBe('object');
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBe(5);

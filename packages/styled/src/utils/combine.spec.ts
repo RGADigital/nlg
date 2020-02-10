@@ -1,8 +1,8 @@
-import combine from './combine';
+import { combine, ParamType } from './combine';
 
 describe('combine', () => {
   test('basic use', () => {
-    const testCase = [
+    const testCase: ParamType[] = [
       ['%c awesome', 'color: red'],
       ['%c super awesome', 'color: blue'],
     ];
@@ -12,7 +12,7 @@ describe('combine', () => {
     testCase.forEach(([, style], index) => expect(combined[index + 1]).toBe(style));
   });
   test('combined use', () => {
-    const testCase = [
+    const testCase: ParamType[] = [
       ['%c awesome', 'color: red'],
       ['%c super %c awesome', 'color: blue', 'color: green'],
       ['%c stuff', 'color: purple'],

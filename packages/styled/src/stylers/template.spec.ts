@@ -1,11 +1,11 @@
-import template from './template';
-import str from './string';
+import { template } from './template';
+import stringTemplate from './string';
+import { IStringTemplate } from '../types';
 
 describe('template styler', () => {
   it('should work with simple cases', () => {
-    const red = str('color: red');
+    const red = stringTemplate('color: red');
     const tpl = template`This is ${red`awesome`}!`;
-    expect(typeof tpl).toBe('object');
     expect(Array.isArray(tpl)).toBe(true);
     expect(tpl.length).toBe(3);
     expect(tpl).toEqual([
@@ -15,7 +15,7 @@ describe('template styler', () => {
     ]);
   });
   it('should work with functional cases', () => {
-    const red = str('color: red');
+    const red = stringTemplate('color: red');
     const tpl = template`This is ${({ props: { name = 'awesome' } = {} } = {}) => red`${name}`}!`;
     expect(typeof tpl).toBe('function');
     const awesomeResult = tpl();
@@ -28,19 +28,33 @@ describe('template styler', () => {
     ]);
   });
   it('should work with a more complex example', () => {
-    const redStyler = str('color: red');
-    const blueStyler = str('color: blue');
+    const redStyler = stringTemplate('color: red');
+    const blueStyler = stringTemplate('color: blue');
     const quantifierGetter = ({
       props: {
         quantifier,
         styler: { blue },
       },
+    }: {
+      props: {
+        quantifier: string,
+        styler: {
+          blue: IStringTemplate,
+        }
+      }
     }) => blue`${quantifier}`;
     const objectGetter = ({
       props: {
         object,
         styler: { red },
       },
+    }: {
+      props: {
+        object: string,
+        styler: {
+          red: IStringTemplate,
+        }
+      }
     }) => red`${object}`;
     const testCase = {
       quantifier: 'so',

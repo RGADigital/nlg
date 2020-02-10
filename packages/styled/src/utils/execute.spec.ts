@@ -1,33 +1,31 @@
-import execute from './execute';
+import { execute } from './execute';
 
 describe('execute', () => {
   it('should return values directly', () => {
     expect(execute('this')).toEqual(['this']);
     expect(execute(['this'])).toEqual(['this']);
-    expect(execute([])).toEqual([]);
-    expect(execute()).toEqual();
   });
   it('should return getter values', () => {
     expect(execute(() => 'this')).toEqual(['this']);
     expect(execute(() => ['this'])).toEqual(['this']);
-    expect(execute(() => [])).toEqual([]);
-    expect(execute(() => {})).toEqual();
   });
   it('should use props properly', () => {
     expect(execute(
       ({ props: { name } }) => name,
-      { name: 'this' },
+      { props: { name: 'this' } },
     )).toEqual(['this']);
     expect(execute(
       ({ props: { name } }) => name,
-      { name: ['this'] },
+      { props: { name: ['this'] } },
     )).toEqual(['this']);
   });
   it('should use props and styler properly', () => {
     expect(execute(
       ({ props: { name }, styler: { red } }) => red(name),
-      { name: 'this' },
-      { red: (value) => `red ${value}` },
+      {
+        props: { name: 'this' },
+        styler: { red: (value: string): string => `red ${value}` },
+      },
     )).toEqual(['red this']);
   });
 });

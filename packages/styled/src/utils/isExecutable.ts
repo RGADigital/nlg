@@ -7,5 +7,8 @@
  * isExecutable(['a', 'b', 'c']) // => false
  * isExecutable(['a', 'b', () => 'c']) // => true
  */
-const isExecutable = (values) => values.filter((it) => typeof it === 'function').length > 0;
+const isExecutable = (values: Function | any): boolean => values.filter(
+  (it: Function | any): boolean => typeof it === 'function',
+).length > 0;
+
 export default isExecutable;

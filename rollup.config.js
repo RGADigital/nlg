@@ -1,5 +1,5 @@
 import path from 'path';
-import babel from 'rollup-plugin-babel';
+import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
@@ -21,11 +21,12 @@ export default (root) => ({
     },
   ],
   plugins: [
-    babel({
+    typescript({
+      module: 'CommonJS',
       exclude: 'node_modules/**',
     }),
     resolve(),
-    commonjs(),
+    commonjs({ extensions: ['.js', '.ts'] }),
     production && terser(),
   ],
 });
